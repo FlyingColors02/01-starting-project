@@ -1,3 +1,12 @@
+import React from "react";
+import CORE_CONCEPT from "./data";
+import CoreConcept from "./components/CoreConcepts";
+import Header from "./components/Header/Header";
+import TabSwitch from "./components/tabSwitch";
+
+
+
+ 
 const roleDescription =["Fundamental", "Crucial", "Core"];
 function getRandomInt(max){
   return Math.floor(Math.random()* (max+1))
@@ -17,10 +26,30 @@ function Header() {
 }
 
 function App() {
+	
   return (
     <div>
 			<Header/>
       <main>
+				<section id="core-concepts">
+					<h2>Core Concept</h2>
+					<ul>
+						{
+							CORE_CONCEPT.map((data)=>
+								<CoreConcept title={data.title} description={data.description} imageSrc={data.imageSrc}/>
+							)
+						}
+					</ul> 
+				</section>
+				<section id="examples">
+						<h2>Examples</h2>
+						<menu>
+							<TabSwitch>Components</TabSwitch>
+							<TabSwitch>Props</TabSwitch>
+							<TabSwitch>JSX</TabSwitch>
+							<TabSwitch>State</TabSwitch>
+						</menu>
+				</section>
         <h2>Time to get started!</h2>
       </main>
     </div>
