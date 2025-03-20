@@ -1,32 +1,20 @@
-import React from "react";
-import CORE_CONCEPT from "./data";
+import React, { useState } from "react";
+import {CORE_CONCEPT, EXAMPLES} from "./data";
 import CoreConcept from "./components/CoreConcepts";
 import Header from "./components/Header/Header";
 import TabSwitch from "./components/tabSwitch";
 
 
 
- 
-const roleDescription =["Fundamental", "Crucial", "Core"];
-function getRandomInt(max){
-  return Math.floor(Math.random()* (max+1))
-}
-
-function Header() {
-  return (
-    <header>
-      <img src="src/assets/react-core-concepts.png" alt="Stylized atom" />
-      <h1>React Essentials</h1>
-      <p>
-        {roleDescription[2]} React concepts you will need for almost any app you are
-        going to build!
-      </p>
-    </header>
-  );
-}
-
 function App() {
+	const [selectedTopic, setSelectedTopic] = useState();
 	
+	const onSelect=(selectedButton)=>{
+		setSelectedTopic(selectedButton);
+		console.log("clicked "+ selectedButton);
+		
+	}
+
   return (
     <div>
 			<Header/>
@@ -44,13 +32,22 @@ function App() {
 				<section id="examples">
 						<h2>Examples</h2>
 						<menu>
-							<TabSwitch>Components</TabSwitch>
-							<TabSwitch>Props</TabSwitch>
-							<TabSwitch>JSX</TabSwitch>
-							<TabSwitch>State</TabSwitch>
+							<TabSwitch isSelected={selectedTopic == "components"} onSelect={()=>onSelect("components")}>Components</TabSwitch>
+							<TabSwitch isSelected={selectedTopic == "props"} onSelect={()=>onSelect("props")}>Props</TabSwitch>
+							<TabSwitch isSelected={selectedTopic == "jsx"} onSelect={()=>onSelect("jsx")}>JSX</TabSwitch>
+							<TabSwitch isSelected={selectedTopic == "state"} onSelect={()=>onSelect("state")}>State</TabSwitch>
 						</menu>
+						<div id="tab-content">
+							{!selectedTopic?<p>Please select a topic!</p>:
+							<><h3>{EXAMPLES[selectedTopic]?.title}</h3>
+							<p>{EXAMPLES[selectedTopic]?.description}</p>
+							<pre>
+								<code>
+									{EXAMPLES[selectedTopic]?.code}
+								</code>
+							</pre></>}
+						</div>
 				</section>
-        <h2>Time to get started!</h2>
       </main>
     </div>
   );
