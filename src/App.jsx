@@ -7,7 +7,7 @@ import TabSwitch from "./components/tabSwitch";
 
 
 function App() {
-	const [selectedTopic, setSelectedTopic] = useState();
+	const [selectedTopic, setSelectedTopic] = useState(null);
 	
 	const onSelect=(selectedButton)=>{
 		setSelectedTopic(selectedButton);
